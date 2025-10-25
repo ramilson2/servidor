@@ -13,3 +13,4 @@ A estrutura de Arquivos, dentro de
 Para se ter efeito das mudanças quanto ao caminho do JSON, mesmo que ele tenha sido mudado em bin/server.dart, a mudança de fato apenas ocorrerá se o servidor for reinicializado, uma vez que o arquivo que foi mudado, precisa ser "compilado" assim dizendo.
 
 O arquivo bin/server.dart vai buscar os aquivos APIs nos diretórios que o mesmo está.
+# servidor
