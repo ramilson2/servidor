@@ -7,26 +7,27 @@ import 'package:path/path.dart' as p;
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 
 final String jsonPath = p.join(Directory.current.path, 'apis', 'users_01.json');
+final String jsonPath2 = p.join(Directory.current.path, 'apis', 'login.json');
 
-Future<List<Map<String, dynamic>>> _readUsers() async {
+Future<List<Map<String, dynamic>>> _readUsers() async { //Abre o arquivo de usuários.
   final file = File(jsonPath);
-  if (!await file.exists()) return [];
-  final data = await file.readAsString();
+  if (!await file.exists()) return []; // Retorna uma lista vazia se o arquivo não existir.
+  final data = await file.readAsString(); // Lê o conteúdo do arquivo e converte de JSON para uma lista de mapas (cada mapa representa um usuário).
   return List<Map<String, dynamic>>.from(json.decode(data));
 }
 
-Future<void> _writeUsers(List<Map<String, dynamic>> users) async {
-  final file = File(jsonPath);
-  await file.writeAsString(json.encode(users), flush: true);
+Future<void> _writeUsers(List<Map<String, dynamic>> users) async { // Salva a lista de usuários no arquivo JSON.
+  final file = File(jsonPath); // Abre o arquivo de usuários.
+  await file.writeAsString(json.encode(users), flush: true); // Escreve a lista de usuários no arquivo. Usa flush: true para garantir que os dados sejam gravados imediatamente.
 }
 
-void main() async {
-  final router = Router();
+void main() async { // Ponto de entrada do servidor.
+  final router = Router(); // Cria um roteador para definir as rotas da API.
 
   // GET /users
-  router.get('/users', (Request req) async {
-    final users = await _readUsers();
-    return Response.ok(json.encode(users), headers: {'Content-Type': 'application/json'});
+  router.get('/users', (Request req) async { //
+    final users = await _readUsers(); // Lê a lista de usuários do arquivo JSON.
+    return Response.ok(json.encode(users), headers: {'Content-Type': 'application/json'}); // Retorna a lista de usuários como resposta JSON.
   });
 
   // POST /users

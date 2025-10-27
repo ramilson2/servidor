@@ -1,6 +1,6 @@
 import 'package:aprendendo_git/main.dart';
 import 'package:aprendendo_git/pagina_01.dart';
-import 'package:aprendendo_git/pagina_03.dart' as pagina3;
+import 'package:aprendendo_git/pagina_03.dart';
 import 'package:aprendendo_git/pagina_04.dart';
 import 'package:flutter/material.dart';
 void main() {
@@ -11,7 +11,7 @@ void main() {
       '/main': (context) => const MyApp(),
       '/pagina_01': (context) => const Pagina01(),
       '/pagina_02': (context) => const Pagina02(),
-      '/pagina_03': (context) => const pagina3.Pagina03(),
+      '/pagina_03': (context) => const Pagina03(),
       '/pagina_04': (context) => const Pagina04(),
     },
     initialRoute: '/',

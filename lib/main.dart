@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:aprendendo_git/pagina_01.dart' as page1;
 import 'package:aprendendo_git/pagina_02.dart' as page2;
-import 'package:aprendendo_git/pagina_03.dart' as page3;
 import 'package:aprendendo_git/pagina_04.dart' as page4;
 
 import 'package:flutter/material.dart';
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
         '/main': (context) => const UserCrudPage(),
         '/pagina_01': (context) => const page1.Pagina01(),
         '/pagina_02': (context) => const page2.Pagina02(),
-        '/pagina_03': (context) => const page3.Pagina03(),
         '/pagina_04': (context) => const page4.Pagina04(),
       },
       initialRoute: '/',
@@ -211,14 +209,14 @@ class _UserCrudPageState extends State<UserCrudPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
           heroTag: "refresh",
           onPressed: loadUsers,
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.green[100],
           tooltip: context.mounted ? 'Atualizar' : null,
-          foregroundColor: Colors.white,
+          foregroundColor: Colors.blue,
           child: const Icon(Icons.refresh),
             ),
             const SizedBox(width: 2),
@@ -277,18 +275,7 @@ class _UserCrudPageState extends State<UserCrudPage> {
               child: const Text('Mostrar Página 02'),
               ),
  
-              ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/pagina_03');
-              },
-                style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orangeAccent,
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
-                ),
-              child: const Text('Mostrar Página 03'),
-              ),
+
 
               ElevatedButton(
               onPressed: () {
@@ -302,7 +289,7 @@ class _UserCrudPageState extends State<UserCrudPage> {
                 textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
                 ),
-              child: const Text('Ocultar Usuários - Página Principal '),
+              child: const Text('Ocultar Usuários '),
               ),
  
 

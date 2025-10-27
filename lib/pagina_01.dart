@@ -26,7 +26,7 @@ class Pagina01 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.green[100],
         title: const Text('Menu Principal'),
       ),
       backgroundColor: Colors.lightBlue[50],
@@ -39,9 +39,9 @@ class Pagina01 extends StatelessWidget {
                 Navigator.pushNamed(context, '/pagina_01');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18),
+                backgroundColor: Colors.green[100],
+                foregroundColor: Colors.black,
+                textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
               child: const Text('Página 01'),
@@ -52,9 +52,9 @@ class Pagina01 extends StatelessWidget {
                 Navigator.pushNamed(context, '/pagina_02');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18),
+                backgroundColor: Colors.green[100],
+                foregroundColor: Colors.black,
+                textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
               child: const Text('Página 02'),
@@ -65,9 +65,9 @@ class Pagina01 extends StatelessWidget {
                 Navigator.pushNamed(context, '/pagina_03');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: Colors.green[100],
                 foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18),
+                textStyle: const TextStyle(fontSize: 12),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
               child: const Text('Página 03'),
@@ -78,9 +78,9 @@ class Pagina01 extends StatelessWidget {
                 Navigator.pushNamed(context, '/pagina_04');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: Colors.green[100],
                 foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18),
+                textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
               child: const Text('Página 04'),
