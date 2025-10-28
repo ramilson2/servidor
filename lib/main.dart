@@ -1,11 +1,12 @@
 import 'dart:convert';
-import 'package:aprendendo_git/pagina_01.dart' as page1;
-import 'package:aprendendo_git/pagina_02.dart' as page2;
-import 'package:aprendendo_git/pagina_04.dart' as page4;
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'models/user.dart';
+import 'pagina_01.dart';
+import 'pagina_02.dart';
+import 'pagina_03.dart';
+import 'pagina_04.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,9 +26,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const UserCrudPage(),
         '/main': (context) => const UserCrudPage(),
-        '/pagina_01': (context) => const page1.Pagina01(),
-        '/pagina_02': (context) => const page2.Pagina02(),
-        '/pagina_04': (context) => const page4.Pagina04(),
+        '/pagina_01': (context) => const Pagina01(),
+        '/pagina_02': (context) => const Pagina02(),
+        '/pagina_03': (context) => const Pagina03(),
+        '/pagina_04': (context) => const Pagina04(),
       },
       initialRoute: '/',
     );
@@ -264,7 +266,7 @@ class _UserCrudPageState extends State<UserCrudPage> {
   
               ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/pagina_02');
+                Navigator.pushNamed(context, '/configuration');
               },
                 style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orangeAccent,

@@ -29,5 +29,6 @@ class User {
         'email': email,
         'idade': idade,
         'profissao': profissao,
+        'especialidade': 'Anestesiologista',
       };
 }

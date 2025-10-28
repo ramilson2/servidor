@@ -9,6 +9,7 @@ void main() {
       '/pagina_01': (context) => const Pagina01(),
       '/pagina_02': (context) => const Pagina02(),
       '/pagina_03': (context) => const Pagina03(),
+      '/pagina_04': (context) => const Pagina04(),
     },
     initialRoute: '/',
   ));
@@ -22,14 +23,14 @@ class Pagina04 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Página 03'),
+        title: const Text('Página 04'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Esta é a Página 03',
+              'Esta é a Página 04',
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
@@ -49,22 +50,24 @@ class Pagina04 extends StatelessWidget {
             const SizedBox(height: 20),
  
             ElevatedButton(
-              onPressed: () {
+              onPressed: ()
+               {
                 Navigator.pushNamed(context, '/pagina_02');
               },
+              
                 style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orangeAccent,
                 foregroundColor: Colors.white,
                 textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
-              child: const Text('Ir para Página 02'),
+             child: const Text('Ir para Página 02'),
             ),
             const SizedBox(height: 20),
 
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/pagina_04');
+                Navigator.pushNamed(context, '/pagina_03');
               },
                 style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orangeAccent,
@@ -72,7 +75,7 @@ class Pagina04 extends StatelessWidget {
                 textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
-              child: const Text('Ir para Página 04'),
+              child: const Text('Ir para Página 03'),
             ),
             const SizedBox(height: 20),
 

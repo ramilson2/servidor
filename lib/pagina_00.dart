@@ -1,8 +1,11 @@
 import 'dart:convert';
-import 'package:aprendendo_git/pagina_01.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'models/user.dart';
+import 'pagina_01.dart';
+import 'pagina_02.dart';
+import 'pagina_03.dart';
+import 'pagina_04.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +25,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const UserCrudPage(),
         '/pagina_01': (context) => const Pagina01(),
+        '/pagina_02': (context) => const Pagina02(),
+        '/pagina_03': (context) => const Pagina03(),
+        '/pagina_04': (context) => const Pagina04(),
+        
       },
       initialRoute: '/',
     );
@@ -94,6 +101,7 @@ class _UserCrudPageState extends State<UserCrudPage> {
   List<User> users = [];
   bool loading = false;
   bool isDarkMode = false;
+  double brightness = 0.5; // Valor inicial para o slider de brilho
 
   void showSnack(String msg, {bool error = false}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -201,7 +209,10 @@ class _UserCrudPageState extends State<UserCrudPage> {
           fontSize: 20,
           fontWeight: FontWeight.normal,
         ),
-      ),
+      ), 
+      
+      // ====================== +++++++++++++++++++++++++++++++++++++++ =========================
+      // a partir daqui é o drawer, que é o menu lateral da aplicação
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.lerp(EdgeInsets.zero, EdgeInsets.all(16), 0.5),// esquerda, cima, direita, baixo
@@ -356,6 +367,10 @@ class _UserCrudPageState extends State<UserCrudPage> {
           ],
         ),
       ),
+
+
+      // ====================== +++++++++++++++++++++++++++++++++++++++ =========================
+      // aqui começa os icones flutuantes de ação que ficam no canto superior direito
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -380,9 +395,10 @@ class _UserCrudPageState extends State<UserCrudPage> {
         ],
       ),
 
-
-
-      backgroundColor: const Color(0xFFF9F5FF), // Cor de fundo suave do Scaffold
+      // ====================== +++++++++++++++++++++++++++++++++++++++ =========================
+      // aqui começa o corpo principal da aplicação que mostra a lista de usuários onde serão feitas as operações de CRUD
+      //backgroundColor: const Color(0xFFF9F5FF), // Cor de fundo suave do Scaffold
+      backgroundColor: isDarkMode ? Colors.teal : Colors.lightBlue[50],
       body: Column(
         children: [
           const SizedBox(height: 5),
@@ -415,112 +431,168 @@ class _UserCrudPageState extends State<UserCrudPage> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text('Clique Acima para carregar os usuários da API'),
-            ],
-          ),
 
-                        SizedBox(
-                        width: 350,
-                        child: SegmentedButton<bool>(
-                          segments: const [
-                          ButtonSegment(value: false, label: Text("Claro")),
-                          ButtonSegment(value: true, label: Text("Escuro")),
-                          ],
-                          selected: {isDarkMode},
-                          onSelectionChanged: (Set<bool> newSelection) {
-                          setState(() {
-                            isDarkMode = newSelection.first;
-                          });
-                          },
-                        ),
-                        ),
+
+//======================== +++++++++++++++++++++++++++++++++++++++ =========================
+// aqui começa o segmento de botões para alternar entre modo dark e light
+
+          const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 350,
+                            child: SegmentedButton<bool>(
+                              segments: const [
+                                ButtonSegment(icon: Icon(Icons.dark_mode_outlined), value: true, label: Text("Dark")),
+                                ButtonSegment(icon: Icon(Icons.light_mode_outlined), value: false, label: Text("Light")),
+                              ],
+                              selected: {isDarkMode},
+                              onSelectionChanged: (Set<bool> newSelection) {
+                                setState(() {
+                                  isDarkMode = newSelection.first;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+
+//======================== +++++++++++++++++++++++++++++++++++++++ =========================
+// aqui começa o segmento de ícone para alternar entre modo dark e light
+            Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+              icon: Icon(
+                isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+              tooltip: isDarkMode ? 'Alternar para Light' : 'Alternar para Dark',
+              onPressed: () {
+                setState(() {
+                isDarkMode = !isDarkMode;
+                });
+              },
+              ),
+              const SizedBox(width: 12),
+              Text(
+              'Clique Acima para carregar os usuários da API',
+              style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
+                fontSize: 16,
+              ),
+              ),
+            ],
+            ),
+// ====================== +++++++++++++++++++++++++++++++++++++++ =========================
+
+
+
+
+
+
+
+ // ====================== +++++++++++++++++++++++++++++++++++++++ =========================
+// aqui começa a barra de busca para filtrar os usuários por nome, profissão ou id 
 
             const SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.fromLTRB(775.0, 10.0, 40.0, 0.0), // esquerda, cima, direita, baixo
+            padding: const EdgeInsets.fromLTRB(300.0, 10.0, 200.0, 0.0), // esquerda, cima, direita, baixo
             child: TextField(
-              decoration: const InputDecoration(
-              labelText: 'Buscar por Nome, Profissão ou ID',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Buscar por Nome, Profissão ou ID',
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                labelStyle: TextStyle(
+                  color: isDarkMode ? Colors.white : Colors.black,
+                  
+                ),
+                border: const OutlineInputBorder(),
               ),
               onChanged: (query) {
-              setState(() {
-                // Filtra usuários por nome, profissão ou id
-                if (query.isEmpty) {
-                // Se vazio, recarrega todos
-                loadUsers();
-                } else {
-                users = users.where((u) {
-                  final idStr = u.id?.toString() ?? '';
-                  return u.name.toLowerCase().contains(query.toLowerCase()) ||
-                    u.profissao.toLowerCase().contains(query.toLowerCase()) ||
-                    idStr.contains(query);
-                }).toList();
-                }
-              });
+                setState(() {
+                  // Filtra usuários por nome, profissão ou id
+                  if (query.isEmpty) {
+                    // Se vazio, recarrega todos
+                    loadUsers();
+                  } else {
+                    users = users.where((u) {
+                      final idStr = u.id?.toString() ?? '';
+                      return u.name.toLowerCase().contains(query.toLowerCase()) ||
+                        u.profissao.toLowerCase().contains(query.toLowerCase()) ||
+                        idStr.contains(query);
+                    }).toList();
+                  }
+                });
               },
             ),
             ),
             const SizedBox(height: 5),
+
+// ====================== +++++++++++++++++++++++++++++++++++++++ =========================
+// aqui começa a listagem dos usuários em cards com botões de editar e deletar ao lado de cada usuário. Dessa forma podemos fazer as operações de CRUD completas.            
             Expanded(
             child: loading
               ? const Center(child: CircularProgressIndicator())
               : Align(
               alignment: Alignment.centerRight,
               child: SizedBox(
-                width: 1150, // ajuste a largura conforme necessário
-                child: ListView.builder(
+              width: 1000, // ajuste a largura conforme necessário
+              child: ListView.builder(
                 itemCount: users.length,
                 itemBuilder: (_, i) {
                 final u = users[i];
                 return Card(
-                color: Colors.green[50],
-                child: ListTile(
+                  color: Colors.green[50],
+                  child: ListTile(
+                    // Adiciona backgroundColor conforme o modo
+                    tileColor: isDarkMode ? Colors.teal : Colors.lightBlue[50],
+                    textColor: isDarkMode ? Colors.white : Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+    
                   title: Text('${u.name}    (${u.profissao})'),
                   subtitle: Text('Email: ${u.email}\nIdade: ${u.idade}\nID: ${u.id}'),
                   trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                  IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.green),
-                  onPressed: () => openUserDialog(user: u),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () async {
-                    final confirm = await showDialog<bool>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                      title: const Text('Confirmação'),
-                      content: const Text('Você deseja realmente excluir o usuário?'),
-                      actions: [
-                        TextButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        child: const Text('Cancelar'),
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.green),
+                      onPressed: () => openUserDialog(user: u),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () async {
+                      final confirm = await showDialog<bool>(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          
+                        title: const Text('Confirmação'),
+                        content: const Text('Você deseja realmente excluir o usuário?'),
+                        actions: [
+                          TextButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text('Cancelar'),
+                          ),
+                          TextButton(
+                          onPressed: () => Navigator.pop(context, true),
+                          child: const Text('Excluir', style: TextStyle(color: Colors.red)),
+                          ),
+                        ],
                         ),
-                        TextButton(
-                        onPressed: () => Navigator.pop(context, true),
-                        child: const Text('Excluir', style: TextStyle(color: Colors.red)),
-                        ),
-                      ],
-                      ),
-                    );
-                    if (confirm == true) {
-                      deleteUser(u.id ?? 0);
-                    }
-                    },
-
-                  ),
-                  ],
+                      );
+                      if (confirm == true) {
+                        deleteUser(u.id ?? 0);
+                      }
+                      },
+                    ),
+                    ],
                   ),
                 ),
-                );
+                ); 
                 },
-                ),
+              ),
               ),
               ),
             ),

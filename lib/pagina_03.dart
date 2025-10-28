@@ -8,7 +8,6 @@ void main() {
     routes: {
       '/pagina_01': (context) => const Pagina01(),
       '/pagina_02': (context) => const Pagina02(),
-      '/pagina_03': (context) => const Pagina03(),
       '/pagina_04': (context) => const Pagina04(),
     },
     initialRoute: '/',

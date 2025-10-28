@@ -18,11 +18,50 @@ void main() {
   ));
 }
 
+// ==================== +++++++++++++++++++++++++++++++++++++++ =========================
+// Slider para ajustar o brilho da tela (simulado)
+class BrightnessSlider extends StatefulWidget {
+  const BrightnessSlider({super.key});
+
+  @override
+  State<BrightnessSlider> createState() => _BrightnessSliderState();
+}
+
+class _BrightnessSliderState extends State<BrightnessSlider> {
+  double _brightness = 0.5;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Text(
+          'Ajuste o brilho (simulado):',
+          style: TextStyle(fontSize: 18),
+        ),
+        Slider(
+          value: _brightness,
+          min: 0.0,
+          max: 1.0,
+          divisions: 10,
+          label: (_brightness * 100).toInt().toString(),
+          onChanged: (value) {
+            setState(() {
+              _brightness = value;
+            });
+          },
+        ),
+        Text('Brilho: ${(_brightness * 100).toInt()}%'),
+      ],
+    );
+  }
+}
+
+// ==================== +++++++++++++++++++++++++++++++++++++++ =========================
+//
 
 // No additional imports or code needed at this location
 class Pagina02 extends StatelessWidget {
   const Pagina02({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +106,26 @@ class Pagina02 extends StatelessWidget {
               child: const Text('Ir para Página 03'),
             ),
             const SizedBox(height: 20),
-   
+
 
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, '/pagina_04');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orangeAccent,
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(fontSize: 15),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+              ),
+              child: const Text('Ir para Página 04'),
+            ),
+            const SizedBox(height: 20),
+      
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/'); // Voltar para a página inicial
               },
                 style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orangeAccent,
@@ -79,7 +133,7 @@ class Pagina02 extends StatelessWidget {
                 textStyle: const TextStyle(fontSize: 15),
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
               ),
-              child: const Text('Voltar para página anterior'),
+              child: const Text('Voltar para página inicial'),
             ),
           ],
         ),
@@ -87,6 +141,4 @@ class Pagina02 extends StatelessWidget {
     );
   }
 }
-class Paginas {
-  const Paginas();
-}
+
